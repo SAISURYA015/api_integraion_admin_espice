@@ -56,10 +56,10 @@ const AdminGalleryDeliveryPartnerLinksPage = () => {
   });
 
   const fetchBrands = async () => {
-    const data = await fetch("http://localhost:4005/api/brands").then((res) =>
-      res.json()
-    );
-    if (!Array.isArray(data)) {
+  const data = await fetch("http://localhost:4005/api/brands").then((res) =>
+    res.json()
+  )
+  if (!Array.isArray(data)) {
       console.error("Brands API error:", data);
       setBrands([]);
       return;
@@ -214,7 +214,7 @@ const AdminGalleryDeliveryPartnerLinksPage = () => {
   //     console.error(error);
   //   }
   // };
-
+  
   const handleEdit = async (e) => {
     e.preventDefault();
 
@@ -246,6 +246,7 @@ const AdminGalleryDeliveryPartnerLinksPage = () => {
       toast.error("Update failed");
     }
   };
+
 
   const handleDelete = async (brandId) => {
     if (!confirm("Are you sure want to delete?")) return;
@@ -292,7 +293,9 @@ const AdminGalleryDeliveryPartnerLinksPage = () => {
       updated.splice(to, 0, moved);
 
       // detect change using id order
-      const hasChanged = originalBrands.some((b, i) => b.id !== updated[i]?.id);
+      const hasChanged = originalBrands.some(
+        (b, i) => b.id !== updated[i]?.id
+      );
 
       setChanged(hasChanged);
       return updated;
@@ -312,14 +315,17 @@ const AdminGalleryDeliveryPartnerLinksPage = () => {
     };
     const token = localStorage.getItem("token");
     try {
-      const response = await fetch("http://localhost:4005/api/brands/reorder", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, // ✅ REQUIRED
-        },
-        body: JSON.stringify(payload),
-      });
+      const response = await fetch(
+        "http://localhost:4005/api/brands/reorder",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // ✅ REQUIRED
+          },
+          body: JSON.stringify(payload),
+        }
+      );
 
       if (!response.ok) {
         // Handle HTTP errors (e.g., 400, 500)
@@ -355,15 +361,18 @@ const AdminGalleryDeliveryPartnerLinksPage = () => {
 
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch(`http://localhost:4005/api/brands/${brand.id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, // ✅ REQUIRED
-        },
+      const res = await fetch(
+        `http://localhost:4005/api/brands/${brand.id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // ✅ REQUIRED
+          },
 
-        body: JSON.stringify({ isActive: newState }),
-      });
+          body: JSON.stringify({ isActive: newState }),
+        }
+      );
 
       if (!res.ok) throw new Error("Failed to update brand");
 
@@ -402,10 +411,7 @@ const AdminGalleryDeliveryPartnerLinksPage = () => {
 
   return (
     <>
-      <AppSidebar
-        activeTitle="Gallery"
-        activeSubtitle="Gallery SocialMediaLinks"
-      />
+      <AppSidebar activeTitle="Gallery" activeSubtitle="Gallery SocialMediaLinks" />
       <main className="w-full">
         <div className="Header w-full flex items-center justify-between px-4 py-2 border-b">
           {/* <SidebarTrigger /> */}
@@ -417,7 +423,7 @@ const AdminGalleryDeliveryPartnerLinksPage = () => {
             <span className="hover:text-black">Gallery</span>
             <span>&gt;</span>
             <a href="/admin/gallery/delivery-platform" className="text-black">
-              Delivery Platform Links
+              Delivery Platform Links 
             </a>
           </span>
           <div className="flex gap-2">
@@ -497,10 +503,7 @@ const AdminGalleryDeliveryPartnerLinksPage = () => {
                       placeholder="Own_delivery_icon"
                       value={addForm.own_delivery_icon}
                       onChange={(e) =>
-                        setAddForm({
-                          ...addForm,
-                          own_delivery_icon: e.target.value,
-                        })
+                        setAddForm({ ...addForm, own_delivery_icon: e.target.value })
                       }
                     />
                   </div>
@@ -528,7 +531,7 @@ const AdminGalleryDeliveryPartnerLinksPage = () => {
             >
               {saveLoading && <Spinner />}Save
             </Button>
-          </div>
+          </div> 
         </div>
         <div className="p-4">
           <Table className={"border"}>
@@ -545,7 +548,7 @@ const AdminGalleryDeliveryPartnerLinksPage = () => {
                   Active
                 </TableHead>
                 <TableHead className="hover:bg-gray-100 text-black text-center">
-                  Swiggy
+                 Swiggy
                 </TableHead>
                 <TableHead className="hover:bg-gray-100 text-black text-center">
                   Zomato
@@ -580,7 +583,7 @@ const AdminGalleryDeliveryPartnerLinksPage = () => {
                     onDragOver={(e) => e.preventDefault()}
                     onDragEnd={handleDragEnd}
                     className="hover:bg-muted select-none"
-                  >
+                    >
                     <TableCell className="text-center">{index + 1}</TableCell>
 
                     <TableCell className="text-center">{brand.name}</TableCell>
@@ -594,71 +597,41 @@ const AdminGalleryDeliveryPartnerLinksPage = () => {
 
                     <TableCell className="text-center">
                       {brand.swiggy ? (
-                        <a
-                          href={brand.swiggy}
-                          target="_blank"
-                          className="text-blue-600 underline"
-                        >
+                        <a href={brand.swiggy} target="_blank" className="text-blue-600 underline">
                           Open
                         </a>
-                      ) : (
-                        "NA"
-                      )}
+                      ) : "NA"}
                     </TableCell>
 
                     <TableCell className="text-center">
                       {brand.zomato ? (
-                        <a
-                          href={brand.zomato}
-                          target="_blank"
-                          className="text-blue-600 underline"
-                        >
+                        <a href={brand.zomato} target="_blank" className="text-blue-600 underline">
                           Open
                         </a>
-                      ) : (
-                        "NA"
-                      )}
+                      ) : "NA"}
                     </TableCell>
 
                     <TableCell className="text-center">
                       {brand.dunzo ? (
-                        <a
-                          href={brand.dunzo}
-                          target="_blank"
-                          className="text-blue-600 underline"
-                        >
+                        <a href={brand.dunzo} target="_blank" className="text-blue-600 underline">
                           Open
                         </a>
-                      ) : (
-                        "NA"
-                      )}
+                      ) : "NA"}
                     </TableCell>
 
                     <TableCell className="text-center">
                       {brand.own_delivery ? (
-                        <a
-                          href={brand.own_delivery}
-                          target="_blank"
-                          className="text-blue-600 underline"
-                        >
+                        <a href={brand.own_delivery} target="_blank" className="text-blue-600 underline">
                           Open
                         </a>
-                      ) : (
-                        "NA"
-                      )}
+                      ) : "NA"}
                     </TableCell>
                     <TableCell className="text-center">
                       {brand.own_delivery_icon ? (
-                        <a
-                          href={brand.own_delivery_icon}
-                          target="_blank"
-                          className="text-blue-600 underline"
-                        >
+                        <a href={brand.own_delivery_icon} target="_blank" className="text-blue-600 underline">
                           Open
                         </a>
-                      ) : (
-                        "NA"
-                      )}
+                      ) : "NA"}
                     </TableCell>
 
                     <TableCell className="text-center">
@@ -669,134 +642,115 @@ const AdminGalleryDeliveryPartnerLinksPage = () => {
                       {new Date(brand.updatedAt).toLocaleDateString()}
                     </TableCell>
                     <TableCell className="text-center">
-                      <Dialog>
-                        <DialogTrigger asChild>
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            className="mr-2 hover:bg-gray-800 hover:text-white"
-                            onClick={() =>
-                              setEditForm({
-                                id: brand.id,
-                                name: brand.name,
-                                swiggy: brand.swiggy || "",
-                                zomato: brand.zomato || "",
-                                dunzo: brand.dunzo || "",
-                                own_delivery: brand.own_delivery || "",
-                                own_delivery_icon:
-                                  brand.own_delivery_icon || "",
-                              })
-                            }
-                          >
-                            <SquarePen />
-                          </Button>
-                        </DialogTrigger>
-                        <DialogContent className="sm:max-w-106.25">
-                          <DialogHeader>
-                            <DialogTitle>Edit brand</DialogTitle>
-                          </DialogHeader>
-                          <div className="grid gap-4">
-                            <div className="grid gap-2">
-                              <Label>Name</Label>
-                              <Input
-                                value={editForm.name}
-                                onChange={(e) =>
-                                  setEditForm({
-                                    ...editForm,
-                                    name: e.target.value,
-                                  })
-                                }
-                                placeholder="Brand name"
-                              />
-                            </div>
-
-                            <div className="grid gap-2">
-                              <Label>Swiggy</Label>
-                              <Input
-                                value={editForm.swiggy}
-                                onChange={(e) =>
-                                  setEditForm({
-                                    ...editForm,
-                                    swiggy: e.target.value,
-                                  })
-                                }
-                                placeholder="Swiggy link"
-                              />
-                            </div>
-
-                            <div className="grid gap-2">
-                              <Label>Zomato</Label>
-                              <Input
-                                value={editForm.zomato}
-                                onChange={(e) =>
-                                  setEditForm({
-                                    ...editForm,
-                                    zomato: e.target.value,
-                                  })
-                                }
-                                placeholder="Zomato link"
-                              />
-                            </div>
-
-                            <div className="grid gap-2">
-                              <Label>Dunzo</Label>
-                              <Input
-                                value={editForm.dunzo}
-                                onChange={(e) =>
-                                  setEditForm({
-                                    ...editForm,
-                                    dunzo: e.target.value,
-                                  })
-                                }
-                                placeholder="Dunzo link"
-                              />
-                            </div>
-
-                            <div className="grid gap-2">
-                              <Label>Own_Delivery</Label>
-                              <Input
-                                value={editForm.own_delivery}
-                                onChange={(e) =>
-                                  setEditForm({
-                                    ...editForm,
-                                    own_delivery: e.target.value,
-                                  })
-                                }
-                                placeholder="Own_Delivery link"
-                              />
-                            </div>
-                            <div className="grid gap-2">
-                              <Label>Own_Delivery_Icon</Label>
-                              <Input
-                                value={editForm.own_delivery_icon}
-                                onChange={(e) =>
-                                  setEditForm({
-                                    ...editForm,
-                                    own_delivery_icon: e.target.value,
-                                  })
-                                }
-                                placeholder="Own_Delivery link"
-                              />
-                            </div>
-                          </div>
-                          <DialogFooter>
-                            <DialogClose asChild id="cancel-button">
-                              <Button variant="outline">Cancel</Button>
-                            </DialogClose>
-                            <Button type="submit" onClick={handleEdit}>
-                              Save changes
+                        <Dialog>
+                          <DialogTrigger asChild>
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              className="mr-2 hover:bg-gray-800 hover:text-white"
+                              onClick={() =>
+                                setEditForm({
+                                  id: brand.id,
+                                  name: brand.name,
+                                  swiggy: brand.swiggy || "",
+                                  zomato: brand.zomato || "",
+                                  dunzo: brand.dunzo || "",
+                                  own_delivery: brand.own_delivery|| "",
+                                  own_delivery_icon: brand.own_delivery_icon|| "",
+                                })
+                              }
+                            >
+                              <SquarePen />
                             </Button>
-                          </DialogFooter>
-                        </DialogContent>
-                      </Dialog>
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        onClick={() => handleDelete(brand.id)}
-                        className="hover:bg-gray-800 hover:text-white"
-                      >
-                        <Trash />
-                      </Button>
+                          </DialogTrigger>
+                          <DialogContent className="sm:max-w-106.25">
+                            <DialogHeader>
+                              <DialogTitle>Edit brand</DialogTitle>
+                            </DialogHeader>
+                              <div className="grid gap-4">
+                                <div className="grid gap-2">
+                                  <Label>Name</Label>
+                                  <Input
+                                    value={editForm.name}
+                                    onChange={(e) =>
+                                      setEditForm({ ...editForm, name: e.target.value })
+                                    }
+                                    placeholder="Brand name"
+                                  />
+                                </div>
+
+                                <div className="grid gap-2">
+                                  <Label>Swiggy</Label>
+                                  <Input
+                                    value={editForm.swiggy}
+                                    onChange={(e) =>
+                                      setEditForm({ ...editForm, swiggy: e.target.value })
+                                    }
+                                    placeholder="Swiggy link"
+                                  />
+                                </div>
+
+                                <div className="grid gap-2">
+                                  <Label>Zomato</Label>
+                                  <Input
+                                    value={editForm.zomato}
+                                    onChange={(e) =>
+                                      setEditForm({ ...editForm, zomato: e.target.value })
+                                    }
+                                    placeholder="Zomato link"
+                                  />
+                                </div>
+
+                                <div className="grid gap-2">
+                                  <Label>Dunzo</Label>
+                                  <Input
+                                    value={editForm.dunzo}
+                                    onChange={(e) =>
+                                      setEditForm({ ...editForm, dunzo: e.target.value })
+                                    }
+                                    placeholder="Dunzo link"
+                                  />
+                                </div>
+
+                                <div className="grid gap-2">
+                                  <Label>Own_Delivery</Label>
+                                  <Input
+                                    value={editForm.own_delivery}
+                                    onChange={(e) =>
+                                      setEditForm({ ...editForm, own_delivery: e.target.value })
+                                    }
+                                    placeholder="Own_Delivery link"
+                                  />
+                                </div>
+                                <div className="grid gap-2">
+                                  <Label>Own_Delivery_Icon</Label>
+                                  <Input
+                                    value={editForm.own_delivery_icon}
+                                    onChange={(e) =>
+                                      setEditForm({ ...editForm, own_delivery_icon: e.target.value })
+                                    }
+                                    placeholder="Own_Delivery link"
+                                  />
+                                </div>
+                              </div>
+                            <DialogFooter>
+                              <DialogClose asChild id="cancel-button">
+                                <Button variant="outline">Cancel</Button>
+                              </DialogClose>
+                              <Button type="submit" onClick={handleEdit}>
+                                Save changes
+                              </Button>
+                            </DialogFooter>
+                          </DialogContent>
+                        </Dialog>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => handleDelete(brand.id)}
+                          className="hover:bg-gray-800 hover:text-white"
+                        >
+                          <Trash />
+                        </Button>
                     </TableCell>
                   </TableRow>
                 ))

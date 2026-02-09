@@ -38,26 +38,26 @@ const AdminGallerySocialMediaLinksPage = () => {
 
   const [addForm, setAddForm] = useState({
     name: "",
-    facebook: "",
-    youtube: "",
-    google: "",
-    instagram: "",
+    facebook:"",
+    youtube:"",
+    google:"",
+    instagram:"",
   });
 
   const [editForm, setEditForm] = useState({
     id: null,
     name: "",
-    facebook: "",
-    youtube: "",
-    google: "",
-    instagram: "",
+    facebook:"",
+    youtube:"",
+    google:"",
+    instagram:"",
   });
 
   const fetchBrands = async () => {
-    const data = await fetch("http://localhost:4005/api/brands").then((res) =>
-      res.json()
-    );
-    if (!Array.isArray(data)) {
+  const data = await fetch("http://localhost:4005/api/brands").then((res) =>
+    res.json()
+  )
+  if (!Array.isArray(data)) {
       console.error("Brands API error:", data);
       setBrands([]);
       return;
@@ -116,13 +116,7 @@ const AdminGallerySocialMediaLinksPage = () => {
       toast.success("brand added successfully");
 
       // Reset form
-      setAddForm({
-        name: "",
-        facebook: "",
-        youtube: "",
-        google: "",
-        instagram: "",
-      });
+      setAddForm({ name: "", facebook:"", youtube:"", google:"", instagram:"" });
     } catch (error) {
       toast.error("Error adding brand");
       console.error(error);
@@ -166,14 +160,8 @@ const AdminGallerySocialMediaLinksPage = () => {
 
       toast.success("brand updated successfully");
 
-      // Reset form
-      setEditForm({
-        name: "",
-        facebook: "",
-        youtube: "",
-        google: "",
-        instagram: "",
-      });
+     // Reset form
+      setEditForm({ name: "", facebook:"", youtube:"", google:"", instagram:"" });
     } catch (error) {
       toast.error("Error updating brand");
       console.error(error);
@@ -231,6 +219,7 @@ const AdminGallerySocialMediaLinksPage = () => {
   //     }
   //   };
 
+
   const handleDelete = async (brandId) => {
     if (!confirm("Are you sure want to delete?")) return;
 
@@ -276,7 +265,9 @@ const AdminGallerySocialMediaLinksPage = () => {
       updated.splice(to, 0, moved);
 
       // detect change using id order
-      const hasChanged = originalBrands.some((b, i) => b.id !== updated[i]?.id);
+      const hasChanged = originalBrands.some(
+        (b, i) => b.id !== updated[i]?.id
+      );
 
       setChanged(hasChanged);
       return updated;
@@ -296,14 +287,17 @@ const AdminGallerySocialMediaLinksPage = () => {
     };
     const token = localStorage.getItem("token");
     try {
-      const response = await fetch("http://localhost:4005/api/brands/reorder", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, // ✅ REQUIRED
-        },
-        body: JSON.stringify(payload),
-      });
+      const response = await fetch(
+        "http://localhost:4005/api/brands/reorder",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // ✅ REQUIRED
+          },
+          body: JSON.stringify(payload),
+        }
+      );
 
       if (!response.ok) {
         // Handle HTTP errors (e.g., 400, 500)
@@ -339,15 +333,18 @@ const AdminGallerySocialMediaLinksPage = () => {
 
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch(`http://localhost:4005/api/brands/${brand.id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, // ✅ REQUIRED
-        },
+      const res = await fetch(
+        `http://localhost:4005/api/brands/${brand.id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // ✅ REQUIRED
+          },
 
-        body: JSON.stringify({ isActive: newState }),
-      });
+          body: JSON.stringify({ isActive: newState }),
+        }
+      );
 
       if (!res.ok) throw new Error("Failed to update brand");
 
@@ -386,10 +383,7 @@ const AdminGallerySocialMediaLinksPage = () => {
 
   return (
     <>
-      <AppSidebar
-        activeTitle="Gallery"
-        activeSubtitle="Gallery SocialMediaLinks"
-      />
+      <AppSidebar activeTitle="Gallery" activeSubtitle="Gallery SocialMediaLinks" />
       <main className="w-full">
         <div className="Header w-full flex items-center justify-between px-4 py-2 border-b">
           {/* <SidebarTrigger /> */}
@@ -516,7 +510,7 @@ const AdminGallerySocialMediaLinksPage = () => {
                   Active
                 </TableHead>
                 <TableHead className="hover:bg-gray-100 text-black text-center">
-                  Facebook
+                 Facebook
                 </TableHead>
                 <TableHead className="hover:bg-gray-100 text-black text-center">
                   Youtube
@@ -548,7 +542,7 @@ const AdminGallerySocialMediaLinksPage = () => {
                     onDragOver={(e) => e.preventDefault()}
                     onDragEnd={handleDragEnd}
                     className="hover:bg-muted select-none"
-                  >
+                    >
                     <TableCell className="text-center">{index + 1}</TableCell>
 
                     <TableCell className="text-center">{brand.name}</TableCell>
@@ -562,58 +556,34 @@ const AdminGallerySocialMediaLinksPage = () => {
 
                     <TableCell className="text-center">
                       {brand.facebook ? (
-                        <a
-                          href={brand.facebook}
-                          target="_blank"
-                          className="text-blue-600 underline"
-                        >
+                        <a href={brand.facebook} target="_blank" className="text-blue-600 underline">
                           Open
                         </a>
-                      ) : (
-                        "NA"
-                      )}
+                      ) : "NA"}
                     </TableCell>
 
                     <TableCell className="text-center">
                       {brand.youtube ? (
-                        <a
-                          href={brand.youtube}
-                          target="_blank"
-                          className="text-blue-600 underline"
-                        >
+                        <a href={brand.youtube} target="_blank" className="text-blue-600 underline">
                           Open
                         </a>
-                      ) : (
-                        "NA"
-                      )}
+                      ) : "NA"}
                     </TableCell>
 
                     <TableCell className="text-center">
                       {brand.google ? (
-                        <a
-                          href={brand.google}
-                          target="_blank"
-                          className="text-blue-600 underline"
-                        >
+                        <a href={brand.google} target="_blank" className="text-blue-600 underline">
                           Open
                         </a>
-                      ) : (
-                        "NA"
-                      )}
+                      ) : "NA"}
                     </TableCell>
 
                     <TableCell className="text-center">
                       {brand.instagram ? (
-                        <a
-                          href={brand.instagram}
-                          target="_blank"
-                          className="text-blue-600 underline"
-                        >
+                        <a href={brand.instagram} target="_blank" className="text-blue-600 underline">
                           Open
                         </a>
-                      ) : (
-                        "NA"
-                      )}
+                      ) : "NA"}
                     </TableCell>
 
                     <TableCell className="text-center">
@@ -624,119 +594,104 @@ const AdminGallerySocialMediaLinksPage = () => {
                       {new Date(brand.updatedAt).toLocaleDateString()}
                     </TableCell>
                     <TableCell className="text-center">
-                      <Dialog>
-                        <DialogTrigger asChild>
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            className="mr-2 hover:bg-gray-800 hover:text-white"
-                            onClick={() =>
-                              setEditForm({
-                                id: brand.id,
-                                name: brand.name,
-                                facebook: brand.facebook || "",
-                                youtube: brand.youtube || "",
-                                google: brand.google || "",
-                                instagram: brand.instagram || "",
-                              })
-                            }
-                          >
-                            <SquarePen />
-                          </Button>
-                        </DialogTrigger>
-                        <DialogContent className="sm:max-w-106.25">
-                          <DialogHeader>
-                            <DialogTitle>Edit brand</DialogTitle>
-                          </DialogHeader>
-                          <div className="grid gap-4">
-                            <div className="grid gap-2">
-                              <Label>Name</Label>
-                              <Input
-                                value={editForm.name}
-                                onChange={(e) =>
-                                  setEditForm({
-                                    ...editForm,
-                                    name: e.target.value,
-                                  })
-                                }
-                                placeholder="Brand name"
-                              />
-                            </div>
-
-                            <div className="grid gap-2">
-                              <Label>Facebook</Label>
-                              <Input
-                                value={editForm.facebook}
-                                onChange={(e) =>
-                                  setEditForm({
-                                    ...editForm,
-                                    facebook: e.target.value,
-                                  })
-                                }
-                                placeholder="Facebook link"
-                              />
-                            </div>
-
-                            <div className="grid gap-2">
-                              <Label>YouTube</Label>
-                              <Input
-                                value={editForm.youtube}
-                                onChange={(e) =>
-                                  setEditForm({
-                                    ...editForm,
-                                    youtube: e.target.value,
-                                  })
-                                }
-                                placeholder="YouTube link"
-                              />
-                            </div>
-
-                            <div className="grid gap-2">
-                              <Label>Google</Label>
-                              <Input
-                                value={editForm.google}
-                                onChange={(e) =>
-                                  setEditForm({
-                                    ...editForm,
-                                    google: e.target.value,
-                                  })
-                                }
-                                placeholder="Google link"
-                              />
-                            </div>
-
-                            <div className="grid gap-2">
-                              <Label>Instagram</Label>
-                              <Input
-                                value={editForm.instagram}
-                                onChange={(e) =>
-                                  setEditForm({
-                                    ...editForm,
-                                    instagram: e.target.value,
-                                  })
-                                }
-                                placeholder="Instagram link"
-                              />
-                            </div>
-                          </div>
-                          <DialogFooter>
-                            <DialogClose asChild id="cancel-button">
-                              <Button variant="outline">Cancel</Button>
-                            </DialogClose>
-                            <Button type="submit" onClick={handleEdit}>
-                              Save changes
+                        <Dialog>
+                          <DialogTrigger asChild>
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              className="mr-2 hover:bg-gray-800 hover:text-white"
+                              onClick={() =>
+                                setEditForm({
+                                  id: brand.id,
+                                  name: brand.name,
+                                  facebook: brand.facebook || "",
+                                  youtube: brand.youtube || "",
+                                  google: brand.google || "",
+                                  instagram: brand.instagram || "",
+                                })
+                              }
+                            >
+                              <SquarePen />
                             </Button>
-                          </DialogFooter>
-                        </DialogContent>
-                      </Dialog>
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        onClick={() => handleDelete(brand.id)}
-                        className="hover:bg-gray-800 hover:text-white"
-                      >
-                        <Trash />
-                      </Button>
+                          </DialogTrigger>
+                          <DialogContent className="sm:max-w-106.25">
+                            <DialogHeader>
+                              <DialogTitle>Edit brand</DialogTitle>
+                            </DialogHeader>
+                              <div className="grid gap-4">
+                                <div className="grid gap-2">
+                                  <Label>Name</Label>
+                                  <Input
+                                    value={editForm.name}
+                                    onChange={(e) =>
+                                      setEditForm({ ...editForm, name: e.target.value })
+                                    }
+                                    placeholder="Brand name"
+                                  />
+                                </div>
+
+                                <div className="grid gap-2">
+                                  <Label>Facebook</Label>
+                                  <Input
+                                    value={editForm.facebook}
+                                    onChange={(e) =>
+                                      setEditForm({ ...editForm, facebook: e.target.value })
+                                    }
+                                    placeholder="Facebook link"
+                                  />
+                                </div>
+
+                                <div className="grid gap-2">
+                                  <Label>YouTube</Label>
+                                  <Input
+                                    value={editForm.youtube}
+                                    onChange={(e) =>
+                                      setEditForm({ ...editForm, youtube: e.target.value })
+                                    }
+                                    placeholder="YouTube link"
+                                  />
+                                </div>
+
+                                <div className="grid gap-2">
+                                  <Label>Google</Label>
+                                  <Input
+                                    value={editForm.google}
+                                    onChange={(e) =>
+                                      setEditForm({ ...editForm, google: e.target.value })
+                                    }
+                                    placeholder="Google link"
+                                  />
+                                </div>
+
+                                <div className="grid gap-2">
+                                  <Label>Instagram</Label>
+                                  <Input
+                                    value={editForm.instagram}
+                                    onChange={(e) =>
+                                      setEditForm({ ...editForm, instagram: e.target.value })
+                                    }
+                                    placeholder="Instagram link"
+                                  />
+                                </div>
+                              </div>
+                            <DialogFooter>
+                              <DialogClose asChild id="cancel-button">
+                                <Button variant="outline">Cancel</Button>
+                              </DialogClose>
+                              <Button type="submit" onClick={handleEdit}>
+                                Save changes
+                              </Button>
+                            </DialogFooter>
+                          </DialogContent>
+                        </Dialog>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => handleDelete(brand.id)}
+                          className="hover:bg-gray-800 hover:text-white"
+                        >
+                          <Trash />
+                        </Button>
                     </TableCell>
                   </TableRow>
                 ))
